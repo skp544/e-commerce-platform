@@ -5,6 +5,7 @@
 
 @theme {
   --font-barlow : "Barlow", sans-serif;
+  --color-blue-primary: "#0D6EFD"
 }
 
 @theme inline {
