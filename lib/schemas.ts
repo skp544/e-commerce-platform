@@ -1,12 +1,11 @@
 import * as z from "zod";
 
 // Category form schema
-
 export const CategoryFormSchema = z.object({
   name: z
     .string({
       required_error: "Category name is required.",
-      invalid_type_error: "Category nale must be a string.",
+      invalid_type_error: "Category name must be a string.",
     })
     .min(2, { message: "Category name must be at least 2 characters long." })
     .max(50, { message: "Category name cannot exceed 50 characters." })
@@ -31,5 +30,5 @@ export const CategoryFormSchema = z.object({
       message:
         "Only letters, numbers, hyphen, and underscore are allowed in the category url, and consecutive occurrences of hyphens, underscores, or spaces are not permitted.",
     }),
-  featured: z.boolean().default(false),
+  featured: z.boolean(),
 });

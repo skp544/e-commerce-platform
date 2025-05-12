@@ -28,6 +28,10 @@ import { Input } from "@/components/ui/input";
 import { Checkbox } from "@/components/ui/checkbox";
 import { Button } from "@/components/ui/button";
 import ImageUpload from "@/components/dashboard/image-upload";
+import { upsertCategory } from "@/queries/category";
+import { v4 } from "uuid";
+import { toast } from "sonner";
+import { useRouter } from "next/navigation";
 
 interface Props {
   data?: Category;
@@ -35,15 +39,18 @@ interface Props {
 }
 
 const CategoryDetails = ({ data, cloudinary_key }: Props) => {
+  const router = useRouter();
+
+  // Form setup using react-hook-form and zod for validation
   const form = useForm<z.infer<typeof CategoryFormSchema>>({
     mode: "onChange", // Form validation mode
     resolver: zodResolver(CategoryFormSchema), // Resolver for form validation
     defaultValues: {
       // Setting default form values from data (if available)
-      name: data?.name,
+      name: data?.name ?? "",
       image: data?.image ? [{ url: data?.image }] : [],
-      url: data?.url,
-      featured: data?.featured,
+      url: data?.url ?? "",
+      featured: data?.featured ?? false,
     },
   });
 
@@ -64,7 +71,47 @@ const CategoryDetails = ({ data, cloudinary_key }: Props) => {
 
   // submit handler
   const handleSubmit = async (values: z.infer<typeof CategoryFormSchema>) => {
-    console.log(values);
+    return console.log(values, "values");
+    try {
+      const response = await upsertCategory({
+        id: data?.id || v4(),
+        name: values.name,
+        image: values.image[0].url,
+        url: values.url,
+        featured: values.featured,
+        createdAt: new Date(),
+        updatedAt: new Date(),
+      });
+
+      toast.success(
+        data?.id
+          ? "Category has been updated"
+          : `Congratulations! '${response.name}' is now officially created.`,
+      );
+
+      // redirect or refresh
+      if (data?.id) {
+        router.refresh();
+      } else {
+        router.push("/dashboard/admin/categories");
+      }
+    } catch (error) {
+      console.error(error);
+      if (error instanceof Error) {
+        form.setError("root", {
+          type: "custom",
+          message: `Oops! ${error.message}`,
+        });
+
+        return toast.error(error.message);
+      } else {
+        form.setError("root", {
+          type: "custom",
+          message: "Oops! An unknown error occurred",
+        });
+        return toast.error("An unknown error occurred");
+      }
+    }
   };
 
   return (
@@ -141,28 +188,35 @@ const CategoryDetails = ({ data, cloudinary_key }: Props) => {
                 disabled={isLoading}
                 control={form.control}
                 name={"featured"}
-                render={({ field }) => (
-                  <FormItem
-                    className={
-                      "flex flex-row items-start space-x-3 space-y-0 rounded-md border p-4"
-                    }
-                  >
-                    <FormControl>
-                      <Checkbox
-                        checked={field.value}
-                        onCheckedChange={field.onChange}
-                      />
-                    </FormControl>
-                    <div className={"space-y-1 leading-none"}>
-                      <FormLabel>Featured</FormLabel>
-                      <FormDescription>
-                        This category will appear on the homepage
-                      </FormDescription>
-                    </div>
-                  </FormItem>
-                )}
+                render={({ field }) => {
+                  console.log(field);
+                  return (
+                    <FormItem
+                      className={
+                        "flex flex-row items-start space-x-3 space-y-0 rounded-md border p-4"
+                      }
+                    >
+                      <FormControl>
+                        <Checkbox
+                          checked={field.value}
+                          onCheckedChange={field.onChange}
+                        />
+                      </FormControl>
+                      <div className={"space-y-1 leading-none"}>
+                        <FormLabel>Featured</FormLabel>
+                        <FormDescription>
+                          This category will appear on the homepage
+                        </FormDescription>
+                      </div>
+                    </FormItem>
+                  );
+                }}
               />
-              <Button type={"submit"} disabled={isLoading}>
+              <Button
+                type={"submit"}
+                className={"cursor-pointer"}
+                disabled={isLoading}
+              >
                 {isLoading
                   ? "Loading..."
                   : data?.id
