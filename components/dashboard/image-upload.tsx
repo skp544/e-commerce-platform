@@ -39,7 +39,7 @@ const ImageUpload = ({
     return (
       <div
         className={
-          "relative rounded-full w-52 h-52 inset-x-96 bg-gray-200 border-2 border-white shadow-2xl"
+          "relative rounded-full w-52 h-52  bg-gray-200 border-2 border-white shadow-2xl"
         }
       >
         {value.length > 0 && (
@@ -53,10 +53,7 @@ const ImageUpload = ({
             alt={"image"}
           />
         )}
-        <CldUploadWidget
-          uploadPreset={CLOUDINARY_CLOUD_KEY}
-          onSuccess={onUpload}
-        >
+        <CldUploadWidget uploadPreset={"goshop"} onSuccess={onUpload}>
           {({ open }) => {
             const onClick = () => {
               open();

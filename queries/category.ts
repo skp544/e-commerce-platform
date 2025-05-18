@@ -3,6 +3,7 @@
 import { Category } from "@/lib/generated/prisma";
 import { currentUser } from "@clerk/nextjs/server";
 import db from "@/lib/db";
+import { errorHandler } from "@/lib/utils";
 
 /*
   @desc create and update category
@@ -16,17 +17,17 @@ export const upsertCategory = async (category: Category) => {
     const user = await currentUser();
 
     if (!user) {
-      throw new Error("Unauthenticated");
+      return errorHandler("Unauthenticated");
     }
 
     if (user.privateMetadata.role !== "ADMIN") {
-      throw new Error(
+      return errorHandler(
         "Unauthorized Access: Admin privileges required for entry",
       );
     }
 
     if (!category) {
-      throw new Error("Please provide category data");
+      return errorHandler("Please provide category data");
     }
 
     const existingCategory = await db.category.findFirst({
@@ -49,7 +50,7 @@ export const upsertCategory = async (category: Category) => {
       } else if (existingCategory.url === category.url) {
         errorMessage = "A category with same url already exists";
       }
-      throw new Error(errorMessage);
+      return errorHandler(errorMessage);
     }
 
     return await db.category.upsert({
@@ -60,12 +61,7 @@ export const upsertCategory = async (category: Category) => {
       create: category,
     });
   } catch (e) {
-    console.error(e);
-    if (e instanceof Error) {
-      throw new Error(e.message);
-    } else {
-      throw new Error("An unknown error occurred");
-    }
+    return errorHandler(e);
   }
 };
 
@@ -83,10 +79,49 @@ export const getAllCategories = async () => {
       },
     });
   } catch (e) {
-    if (e instanceof Error) {
-      throw new Error(e.message);
-    } else {
-      throw new Error("An unknown error occurred");
+    return errorHandler(e);
+  }
+};
+
+/*
+  @desc get category by id
+  @param categoryId
+  @returns category
+  @permission public
+ */
+
+export const getCategoryById = async (categoryId: string) => {
+  try {
+    return await db.category.findUnique({
+      where: { id: categoryId },
+    });
+  } catch (e) {
+    return errorHandler(e);
+  }
+};
+
+export const deleteCategory = async (categoryId: string) => {
+  try {
+    const user = await currentUser();
+
+    if (!user) return;
+
+    if (user.privateMetadata.role !== "ADMIN") {
+      return errorHandler(
+        "Unauthorized Access: Admin privileges required for entry",
+      );
     }
+
+    if (!categoryId) {
+      return errorHandler("Please provide category id");
+    }
+
+    return await db.category.delete({
+      where: {
+        id: categoryId,
+      },
+    });
+  } catch (e) {
+    return errorHandler(e);
   }
 };

@@ -3,6 +3,7 @@ import { getAllCategories } from "@/queries/category";
 import DataTable from "@/components/ui/data-table";
 import { Plus } from "lucide-react";
 import CategoryDetails from "@/components/dashboard/forms/category-details";
+import { columns } from "@/app/dashboard/admin/categories/columns";
 
 const AdminCategories = async () => {
   const categories = await getAllCategories();
@@ -21,7 +22,7 @@ const AdminCategories = async () => {
       filterValue={"name"}
       data={categories}
       searchPlaceholder={"Search category name..."}
-      columns={[]}
+      columns={columns}
     />
   );
 };

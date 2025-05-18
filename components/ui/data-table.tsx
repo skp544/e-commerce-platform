@@ -131,7 +131,7 @@ export default function DataTable<TData, TValue>({
                     {row.getVisibleCells().map((cell) => (
                       <TableCell
                         key={cell.id}
-                        className="max-w-[400px] break-words"
+                        className="max-w-[400px] break-words "
                       >
                         {flexRender(
                           cell.column.columnDef.cell,

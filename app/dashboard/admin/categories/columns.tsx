@@ -43,13 +43,14 @@ import {
 } from "lucide-react";
 
 // Queries
-// import { deleteCategory, getCategory } from "@/queries/category";
+import { deleteCategory, getCategoryById } from "@/queries/category";
 
 // Tanstack React Table
 import { ColumnDef } from "@tanstack/react-table";
 
 // Prisma models
 import { Category } from "@/lib/generated/prisma";
+import { toast } from "sonner";
 
 export const columns: ColumnDef<Category>[] = [
   {
@@ -146,14 +147,11 @@ const CellActions: React.FC<CellActionsProps> = ({ rowData }) => {
                 // Custom modal component
                 <CustomModal>
                   {/* Store details component */}
-                  <CategoryDetails
-                    data={{ ...rowData }}
-                    cloudinary_key={CLOUDINARY_CLOUD_KEY!}
-                  />
+                  <CategoryDetails data={{ ...rowData }} />
                 </CustomModal>,
                 async () => {
                   return {
-                    rowData: await getCategory(rowData?.id),
+                    rowData: await getCategoryById(rowData?.id),
                   };
                 },
               );
