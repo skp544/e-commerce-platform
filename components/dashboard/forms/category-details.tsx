@@ -1,11 +1,11 @@
 "use client";
 
-import React, { useEffect } from "react";
+import React, { FC, useEffect } from "react";
 import { Category } from "@/lib/generated/prisma";
-
-import * as z from "zod";
+import { useRouter } from "next/navigation";
 import { useForm } from "react-hook-form";
 import { CategoryFormSchema } from "@/lib/schemas";
+import * as z from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { AlertDialog } from "@/components/ui/alert-dialog";
 import {
@@ -25,56 +25,54 @@ import {
   FormMessage,
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
-import { Checkbox } from "@/components/ui/checkbox";
 import { Button } from "@/components/ui/button";
+import { Checkbox } from "@/components/ui/checkbox";
 import ImageUpload from "@/components/dashboard/image-upload";
+import { toast } from "sonner";
 import { upsertCategory } from "@/queries/category";
 import { v4 } from "uuid";
-import { toast } from "sonner";
-import { useRouter } from "next/navigation";
 
 interface Props {
   data?: Category;
   cloudinary_key: string;
 }
 
-const CategoryDetails = ({ data, cloudinary_key }: Props) => {
+const CategoryDetails: FC<Props> = ({ data, cloudinary_key }) => {
   const router = useRouter();
 
-  // Form setup using react-hook-form and zod for validation
   const form = useForm<z.infer<typeof CategoryFormSchema>>({
-    mode: "onChange", // Form validation mode
-    resolver: zodResolver(CategoryFormSchema), // Resolver for form validation
+    mode: "onChange",
+    resolver: zodResolver(CategoryFormSchema),
     defaultValues: {
-      // Setting default form values from data (if available)
-      name: data?.name ?? "",
+      name: data?.name || "",
       image: data?.image ? [{ url: data?.image }] : [],
-      url: data?.url ?? "",
-      featured: data?.featured ?? false,
+      url: data?.url || "",
+      featured: data?.featured || false,
     },
   });
 
+  // loading
   const isLoading = form.formState.isSubmitting;
 
-  // Reset formdata
+  // Reset form values when data changes
 
   useEffect(() => {
     if (data) {
       form.reset({
-        name: data?.name,
-        image: [{ url: data?.image }],
-        url: data?.url,
-        featured: data?.featured,
+        name: data.name,
+        image: data.image ? [{ url: data.image }] : [],
+        url: data.url,
+        featured: data.featured,
       });
     }
   }, [data, form]);
 
-  // submit handler
   const handleSubmit = async (values: z.infer<typeof CategoryFormSchema>) => {
-    return console.log(values, "values");
+    console.log("Values", values);
+
     try {
       const response = await upsertCategory({
-        id: data?.id || v4(),
+        id: data?.id ? data.id : v4(),
         name: values.name,
         image: values.image[0].url,
         url: values.url,
@@ -83,33 +81,26 @@ const CategoryDetails = ({ data, cloudinary_key }: Props) => {
         updatedAt: new Date(),
       });
 
-      toast.success(
+      console.log("Response", response);
+
+      // Displaying a success message
+      toast(
         data?.id
-          ? "Category has been updated"
-          : `Congratulations! '${response.name}' is now officially created.`,
+          ? "Category has been updated."
+          : `Congratulations! '${response?.name}' is now created.`,
       );
 
-      // redirect or refresh
+      // Redirect or Refresh data
       if (data?.id) {
         router.refresh();
       } else {
         router.push("/dashboard/admin/categories");
       }
-    } catch (error) {
-      console.error(error);
-      if (error instanceof Error) {
-        form.setError("root", {
-          type: "custom",
-          message: `Oops! ${error.message}`,
-        });
-
-        return toast.error(error.message);
+    } catch (e) {
+      if (e instanceof Error) {
+        toast.error(e.message);
       } else {
-        form.setError("root", {
-          type: "custom",
-          message: "Oops! An unknown error occurred",
-        });
-        return toast.error("An unknown error occurred");
+        toast.error("An unknown error occurred");
       }
     }
   };
@@ -117,31 +108,34 @@ const CategoryDetails = ({ data, cloudinary_key }: Props) => {
   return (
     <AlertDialog>
       <Card className={"w-full"}>
+        {/* Card Header */}
         <CardHeader>
           <CardTitle>Category Information</CardTitle>
           <CardDescription>
             {data?.id
-              ? `Update  ${data?.name} category information`
-              : "Lets create a category. You can edit category later from the categories table or the category page."}
+              ? `Update ${data?.name} category information.`
+              : " Lets create a category. You can edit category later from the categories table or the category page."}
           </CardDescription>
         </CardHeader>
+
+        {/* Card Content */}
         <CardContent>
           <Form {...form}>
             <form
               onSubmit={form.handleSubmit(handleSubmit)}
-              className="space-y-4"
+              className={"space-y-4"}
             >
               <FormField
                 control={form.control}
-                name={"image"}
+                name="image"
                 render={({ field }) => (
                   <FormItem>
                     <FormControl>
                       <ImageUpload
-                        disabled={isLoading}
-                        type={"profile"}
                         cloudinary_key={cloudinary_key}
+                        type="profile"
                         value={field.value.map((image) => image.url)}
+                        disabled={isLoading}
                         onChange={(url) => field.onChange([{ url }])}
                         onRemove={(url) =>
                           field.onChange([
@@ -152,65 +146,60 @@ const CategoryDetails = ({ data, cloudinary_key }: Props) => {
                         }
                       />
                     </FormControl>
+                    <FormMessage />
                   </FormItem>
                 )}
               />
               <FormField
-                disabled={isLoading}
                 control={form.control}
                 name={"name"}
                 render={({ field }) => (
                   <FormItem className={"flex-1"}>
                     <FormLabel>Category Name</FormLabel>
                     <FormControl>
-                      <Input placeholder={"Category Name"} {...field} />
+                      <Input {...field} placeholder={"Category Name"} />
                     </FormControl>
                     <FormMessage />
                   </FormItem>
                 )}
               />
               <FormField
-                disabled={isLoading}
                 control={form.control}
                 name={"url"}
                 render={({ field }) => (
                   <FormItem className={"flex-1"}>
                     <FormLabel>Category Url</FormLabel>
                     <FormControl>
-                      <Input placeholder={"/category-url"} {...field} />
+                      <Input {...field} placeholder={"/category-url"} />
                     </FormControl>
                     <FormMessage />
                   </FormItem>
                 )}
               />
-
               <FormField
-                disabled={isLoading}
                 control={form.control}
                 name={"featured"}
-                render={({ field }) => {
-                  console.log(field);
-                  return (
-                    <FormItem
-                      className={
-                        "flex flex-row items-start space-x-3 space-y-0 rounded-md border p-4"
-                      }
-                    >
-                      <FormControl>
-                        <Checkbox
-                          checked={field.value}
-                          onCheckedChange={field.onChange}
-                        />
-                      </FormControl>
-                      <div className={"space-y-1 leading-none"}>
-                        <FormLabel>Featured</FormLabel>
-                        <FormDescription>
-                          This category will appear on the homepage
-                        </FormDescription>
-                      </div>
-                    </FormItem>
-                  );
-                }}
+                render={({ field }) => (
+                  <FormItem
+                    className={
+                      "flex flex-row items-start space-x-3 space-y-0 rounded-md border p-4"
+                    }
+                  >
+                    <FormControl>
+                      <Checkbox
+                        checked={field.value}
+                        onCheckedChange={field.onChange}
+                      />
+                    </FormControl>
+                    <div className={"space-y-1 leading-none"}>
+                      <FormLabel>Featured</FormLabel>
+                      <FormDescription>
+                        This category will appear on the home page
+                      </FormDescription>
+                    </div>
+                    <FormMessage />
+                  </FormItem>
+                )}
               />
               <Button
                 type={"submit"}
@@ -218,7 +207,7 @@ const CategoryDetails = ({ data, cloudinary_key }: Props) => {
                 disabled={isLoading}
               >
                 {isLoading
-                  ? "Loading..."
+                  ? "Saving..."
                   : data?.id
                     ? "Save Category Information"
                     : "Create Category"}
@@ -230,5 +219,4 @@ const CategoryDetails = ({ data, cloudinary_key }: Props) => {
     </AlertDialog>
   );
 };
-
 export default CategoryDetails;
