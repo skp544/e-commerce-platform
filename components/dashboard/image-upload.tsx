@@ -3,6 +3,7 @@
 import React, { useEffect, useState } from "react";
 import Image from "next/image";
 import { CldUploadWidget } from "next-cloudinary";
+import { CLOUDINARY_CLOUD_KEY } from "@/lib/utils";
 
 interface Props {
   disabled?: boolean;
@@ -11,7 +12,6 @@ interface Props {
   value: string[];
   type: "standard" | "profile" | "cover";
   dontShowPreview?: boolean;
-  cloudinary_key: string;
 }
 
 const ImageUpload = ({
@@ -21,7 +21,6 @@ const ImageUpload = ({
   value,
   type,
   dontShowPreview,
-  cloudinary_key,
 }: Props) => {
   const [isMounted, setIsMounted] = useState(false);
 
@@ -54,7 +53,10 @@ const ImageUpload = ({
             alt={"image"}
           />
         )}
-        <CldUploadWidget uploadPreset={cloudinary_key} onSuccess={onUpload}>
+        <CldUploadWidget
+          uploadPreset={CLOUDINARY_CLOUD_KEY}
+          onSuccess={onUpload}
+        >
           {({ open }) => {
             const onClick = () => {
               open();

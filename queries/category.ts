@@ -4,6 +4,13 @@ import { Category } from "@/lib/generated/prisma";
 import { currentUser } from "@clerk/nextjs/server";
 import db from "@/lib/db";
 
+/*
+  @desc create and update category
+  @body category
+  @returns category
+  @permission admin
+ */
+
 export const upsertCategory = async (category: Category) => {
   try {
     const user = await currentUser();
@@ -54,6 +61,28 @@ export const upsertCategory = async (category: Category) => {
     });
   } catch (e) {
     console.error(e);
+    if (e instanceof Error) {
+      throw new Error(e.message);
+    } else {
+      throw new Error("An unknown error occurred");
+    }
+  }
+};
+
+/*
+  @desc get al categories
+  @returns category[]
+  @permission admin
+ */
+
+export const getAllCategories = async () => {
+  try {
+    return await db.category.findMany({
+      orderBy: {
+        updatedAt: "desc",
+      },
+    });
+  } catch (e) {
     if (e instanceof Error) {
       throw new Error(e.message);
     } else {

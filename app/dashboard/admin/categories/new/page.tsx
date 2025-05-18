@@ -1,9 +1,8 @@
 import React from "react";
 import CategoryDetails from "@/components/dashboard/forms/category-details";
+import { CLOUDINARY_CLOUD_KEY } from "@/lib/utils";
 
 const AdminNewCategory = () => {
-  const CLOUDINARY_CLOUD_KEY = process.env.NEXT_PUBLIC_CLOUDINARY_PRESET_NAME;
-
   if (!CLOUDINARY_CLOUD_KEY) {
     return null;
   }

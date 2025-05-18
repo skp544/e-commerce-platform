@@ -34,10 +34,9 @@ import { v4 } from "uuid";
 
 interface Props {
   data?: Category;
-  cloudinary_key: string;
 }
 
-const CategoryDetails: FC<Props> = ({ data, cloudinary_key }) => {
+const CategoryDetails: FC<Props> = ({ data }) => {
   const router = useRouter();
 
   const form = useForm<z.infer<typeof CategoryFormSchema>>({
@@ -132,7 +131,6 @@ const CategoryDetails: FC<Props> = ({ data, cloudinary_key }) => {
                   <FormItem>
                     <FormControl>
                       <ImageUpload
-                        cloudinary_key={cloudinary_key}
                         type="profile"
                         value={field.value.map((image) => image.url)}
                         disabled={isLoading}
