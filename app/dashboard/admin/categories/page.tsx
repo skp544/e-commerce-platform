@@ -23,6 +23,7 @@ const AdminCategories = async () => {
       data={categories}
       searchPlaceholder={"Search category name..."}
       columns={columns}
+      newTabLink={"/dashboard/admin/categories/new"}
     />
   );
 };

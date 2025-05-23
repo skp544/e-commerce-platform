@@ -4,12 +4,10 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="ce013acf-72fd-4aef-96dd-4aea93d5eedd" name="Changes" comment="">
+    <list default="true" id="ce013acf-72fd-4aef-96dd-4aea93d5eedd" name="Changes" comment="add subcategory fetching and update dashboard component">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/dashboard/admin/sub-categories/page.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/app/dashboard/admin/sub-categories/page.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/components/dashboard/forms/sub-category-details.tsx" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/queries/subcategory.ts" beforeDir="false" afterPath="$PROJECT_DIR$/queries/subcategory.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/types/index.d.ts" beforeDir="false" afterPath="$PROJECT_DIR$/types/index.d.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/dashboard/admin/categories/page.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/app/dashboard/admin/categories/page.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/components/ui/data-table.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/components/ui/data-table.tsx" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -114,11 +112,35 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1747976364761</updated>
-      <workItem from="1747976368153" duration="12329000" />
+      <workItem from="1747976368153" duration="13070000" />
     </task>
+    <task id="LOCAL-00001" summary="add subcategory fetching and update dashboard component">
+      <option name="closed" value="true" />
+      <created>1748008203264</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1748008203264</updated>
+    </task>
+    <option name="localTasksCounter" value="2" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
     <option name="version" value="3" />
+  </component>
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State />
+          </value>
+        </entry>
+      </map>
+    </option>
+  </component>
+  <component name="VcsManagerConfiguration">
+    <MESSAGE value="add subcategory fetching and update dashboard component" />
+    <option name="LAST_COMMIT_MESSAGE" value="add subcategory fetching and update dashboard component" />
   </component>
 </project>

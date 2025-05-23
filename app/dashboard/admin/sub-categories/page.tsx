@@ -28,6 +28,7 @@ const AdminSubCategory = async () => {
       data={subCategory}
       searchPlaceholder={"Search Sub Category by name..."}
       columns={columns}
+      newTabLink={"/dashboard/admin/sub-categories/new"}
     />
   );
 };
