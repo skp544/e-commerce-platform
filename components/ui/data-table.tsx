@@ -13,7 +13,6 @@ import {
 } from "@/components/ui/table";
 
 import {
-  ColumnDef,
   flexRender,
   getCoreRowModel,
   getFilteredRowModel,

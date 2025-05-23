@@ -9,7 +9,7 @@ const AdminNewCategory = () => {
 
   return (
     <div className={"w-full"}>
-      <CategoryDetails cloudinary_key={CLOUDINARY_CLOUD_KEY} />
+      <CategoryDetails />
     </div>
   );
 };

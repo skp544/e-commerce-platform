@@ -1,6 +1,5 @@
 import React from "react";
 import { getAllSubCategories } from "@/queries/subcategory";
-import { getAllCategories } from "@/queries/category";
 import DataTable from "@/components/ui/data-table";
 import { Plus } from "lucide-react";
 import SubCategoryDetails from "@/components/dashboard/forms/sub-category-details";
@@ -12,8 +11,6 @@ const AdminSubCategory = async () => {
   if (!subCategory) {
     return null;
   }
-
-  const categories = await getAllCategories();
 
   return (
     <DataTable
