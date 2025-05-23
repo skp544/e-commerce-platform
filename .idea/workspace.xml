@@ -4,9 +4,11 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="ce013acf-72fd-4aef-96dd-4aea93d5eedd" name="Changes" comment="refactor: remove unused imports and simplify CategoryDetails component">
+    <list default="true" id="ce013acf-72fd-4aef-96dd-4aea93d5eedd" name="Changes" comment="adding store model">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/prisma/schema.prisma" beforeDir="false" afterPath="$PROJECT_DIR$/prisma/schema.prisma" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/dashboard/seller/page.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/app/dashboard/seller/page.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/components/dashboard/sidebar.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/components/dashboard/sidebar.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/constants/data.ts" beforeDir="false" afterPath="$PROJECT_DIR$/constants/data.ts" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -21,25 +23,25 @@
       </list>
     </option>
   </component>
-  <component name="GitHubPullRequestSearchHistory"><![CDATA[{
-  "lastFilter": {
-    "state": "OPEN",
-    "assignee": "skp544"
+  <component name="GitHubPullRequestSearchHistory">{
+  &quot;lastFilter&quot;: {
+    &quot;state&quot;: &quot;OPEN&quot;,
+    &quot;assignee&quot;: &quot;skp544&quot;
   }
-}]]></component>
-  <component name="GithubPullRequestsUISettings"><![CDATA[{
-  "selectedUrlAndAccountId": {
-    "url": "https://github.com/skp544/e-commerce-platform.git",
-    "accountId": "d04c8c0b-25d6-4bea-ac13-9ba446572c94"
+}</component>
+  <component name="GithubPullRequestsUISettings">{
+  &quot;selectedUrlAndAccountId&quot;: {
+    &quot;url&quot;: &quot;https://github.com/skp544/e-commerce-platform.git&quot;,
+    &quot;accountId&quot;: &quot;d04c8c0b-25d6-4bea-ac13-9ba446572c94&quot;
   }
-}]]></component>
+}</component>
   <component name="ProblemsViewState">
     <option name="selectedTabId" value="CurrentFile" />
   </component>
-  <component name="ProjectColorInfo"><![CDATA[{
-  "customColor": "",
-  "associatedIndex": 5
-}]]></component>
+  <component name="ProjectColorInfo">{
+  &quot;customColor&quot;: &quot;&quot;,
+  &quot;associatedIndex&quot;: 5
+}</component>
   <component name="ProjectId" id="2xTyT6E2TXdiNZ52ceSg6AmJLXs" />
   <component name="ProjectLevelVcsManager">
     <ConfirmationsSetting value="1" id="Add" />
@@ -48,30 +50,30 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "ModuleVcsDetector.initialDetectionPerformed": "true",
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "RunOnceActivity.TerminalTabsStorage.copyFrom.TerminalArrangementManager": "true",
-    "RunOnceActivity.git.unshallow": "true",
-    "ignore.virus.scanning.warn.message": "true",
-    "js.debugger.nextJs.config.created.client": "true",
-    "js.debugger.nextJs.config.created.server": "true",
-    "js.linters.configure.manually.selectedeslint": "true",
-    "last_opened_file_path": "D:/projects/proj-2025/e-commerce/app/dashboard/admin/sub-categories",
-    "node.js.detected.package.eslint": "true",
-    "node.js.detected.package.standard": "true",
-    "node.js.detected.package.tslint": "true",
-    "node.js.selected.package.eslint": "D:\\projects\\proj-2025\\e-commerce\\node_modules\\eslint",
-    "node.js.selected.package.standard": "",
-    "node.js.selected.package.tslint": "(autodetect)",
-    "nodejs_package_manager_path": "npm",
-    "prettierjs.PrettierConfiguration.Package": "D:\\projects\\proj-2025\\e-commerce\\node_modules\\prettier",
-    "settings.editor.selected.configurable": "terminal",
-    "ts.external.directory.path": "D:\\projects\\proj-2025\\e-commerce\\node_modules\\typescript\\lib",
-    "vue.rearranger.settings.migration": "true"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;ModuleVcsDetector.initialDetectionPerformed&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.TerminalTabsStorage.copyFrom.TerminalArrangementManager&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.git.unshallow&quot;: &quot;true&quot;,
+    &quot;ignore.virus.scanning.warn.message&quot;: &quot;true&quot;,
+    &quot;js.debugger.nextJs.config.created.client&quot;: &quot;true&quot;,
+    &quot;js.debugger.nextJs.config.created.server&quot;: &quot;true&quot;,
+    &quot;js.linters.configure.manually.selectedeslint&quot;: &quot;true&quot;,
+    &quot;last_opened_file_path&quot;: &quot;D:/projects/proj-2025/e-commerce/app/dashboard/admin/sub-categories&quot;,
+    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
+    &quot;node.js.detected.package.standard&quot;: &quot;true&quot;,
+    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
+    &quot;node.js.selected.package.eslint&quot;: &quot;D:\\projects\\proj-2025\\e-commerce\\node_modules\\eslint&quot;,
+    &quot;node.js.selected.package.standard&quot;: &quot;&quot;,
+    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
+    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
+    &quot;prettierjs.PrettierConfiguration.Package&quot;: &quot;D:\\projects\\proj-2025\\e-commerce\\node_modules\\prettier&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;terminal&quot;,
+    &quot;ts.external.directory.path&quot;: &quot;D:\\projects\\proj-2025\\e-commerce\\node_modules\\typescript\\lib&quot;,
+    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
   }
-}]]></component>
+}</component>
   <component name="ReactDesignerToolWindowState">
     <option name="myId2Visible">
       <map>
@@ -83,6 +85,9 @@
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
       <recent name="D:\projects\proj-2025\e-commerce\app\dashboard\admin\sub-categories" />
+    </key>
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="D:\projects\proj-2025\e-commerce\components\dashboard" />
     </key>
   </component>
   <component name="RunManager" selected="npm.Next.js: server-side">
@@ -114,7 +119,8 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1747976364761</updated>
-      <workItem from="1747976368153" duration="14612000" />
+      <workItem from="1747976368153" duration="19732000" />
+      <workItem from="1748027646375" duration="1850000" />
     </task>
     <task id="LOCAL-00001" summary="add subcategory fetching and update dashboard component">
       <option name="closed" value="true" />
@@ -140,7 +146,23 @@
       <option name="project" value="LOCAL" />
       <updated>1748009220267</updated>
     </task>
-    <option name="localTasksCounter" value="4" />
+    <task id="LOCAL-00004" summary="adding store model">
+      <option name="closed" value="true" />
+      <created>1748010612031</created>
+      <option name="number" value="00004" />
+      <option name="presentableId" value="LOCAL-00004" />
+      <option name="project" value="LOCAL" />
+      <updated>1748010612031</updated>
+    </task>
+    <task id="LOCAL-00005" summary="adding store model">
+      <option name="closed" value="true" />
+      <created>1748010620689</created>
+      <option name="number" value="00005" />
+      <option name="presentableId" value="LOCAL-00005" />
+      <option name="project" value="LOCAL" />
+      <updated>1748010620689</updated>
+    </task>
+    <option name="localTasksCounter" value="6" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -161,6 +183,7 @@
     <MESSAGE value="add subcategory fetching and update dashboard component" />
     <MESSAGE value="add new tab links for categories and subcategories in data table" />
     <MESSAGE value="refactor: remove unused imports and simplify CategoryDetails component" />
-    <option name="LAST_COMMIT_MESSAGE" value="refactor: remove unused imports and simplify CategoryDetails component" />
+    <MESSAGE value="adding store model" />
+    <option name="LAST_COMMIT_MESSAGE" value="adding store model" />
   </component>
 </project>
