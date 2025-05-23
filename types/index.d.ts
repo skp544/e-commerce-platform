@@ -1,5 +1,6 @@
 import React from "react";
 import { User } from "@/lib/generated/prisma";
+import { getAllSubCategories } from "@/queries/subcategory";
 
 export interface DashboardSidebarMenuInterface {
   label: string;
@@ -30,3 +31,7 @@ export type ModalContextType = {
   setOpen: (modal: React.ReactNode, fetchData?: () => Promise<any>) => void;
   setClose: () => void;
 };
+
+export type SubCategoryWithCategoryType = Prisma.PromiseReturnType<
+  typeof getAllSubCategories
+>[0];

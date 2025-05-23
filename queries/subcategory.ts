@@ -66,7 +66,7 @@ export const upsertSubCategory = async (subcategory: SubCategory) => {
 };
 
 /*
-  @desc get al categories
+  @desc get all categories
   @returns category[]
   @permission admin
  */
@@ -74,6 +74,9 @@ export const upsertSubCategory = async (subcategory: SubCategory) => {
 export const getAllSubCategories = async () => {
   try {
     return await db.subCategory.findMany({
+      include: {
+        category: true,
+      },
       orderBy: {
         updatedAt: "desc",
       },

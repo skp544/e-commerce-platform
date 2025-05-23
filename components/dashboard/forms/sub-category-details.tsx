@@ -3,10 +3,13 @@
 import React, { FC, useEffect } from "react";
 import { Category, SubCategory } from "@/lib/generated/prisma";
 import { useRouter } from "next/navigation";
-import { useForm } from "react-hook-form";
-import * as z from "zod";
 import { SubCategoryFormSchema } from "@/lib/schemas";
+import { useForm } from "react-hook-form";
+import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
+import { upsertSubCategory } from "@/queries/subcategory";
+import { v4 } from "uuid";
+import { toast } from "sonner";
 import { AlertDialog } from "@/components/ui/alert-dialog";
 import {
   Card,
@@ -26,11 +29,6 @@ import {
 } from "@/components/ui/form";
 import ImageUpload from "@/components/dashboard/image-upload";
 import { Input } from "@/components/ui/input";
-import { Checkbox } from "@/components/ui/checkbox";
-import { Button } from "@/components/ui/button";
-import { v4 } from "uuid";
-import { toast } from "sonner";
-import { upsertSubCategory } from "@/queries/subcategory";
 import {
   Select,
   SelectContent,
@@ -38,10 +36,12 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
+import { Checkbox } from "@/components/ui/checkbox";
+import { Button } from "@/components/ui/button";
 
 interface Props {
   data?: SubCategory;
-  categories?: Category[];
+  categories: Category[];
 }
 
 const SubCategoryDetails: FC<Props> = ({ data, categories }) => {
@@ -62,18 +62,22 @@ const SubCategoryDetails: FC<Props> = ({ data, categories }) => {
   const isLoading = form.formState.isSubmitting;
 
   const formData = form.watch();
+  console.log("FormData", formData);
 
   useEffect(() => {
     if (data) {
       form.reset({
-        name: data?.name,
-        image: [{ url: data?.image }],
-        url: data?.url,
-        featured: data?.featured,
+        name: data.name,
+        image: data.image ? [{ url: data.image }] : [],
+        url: data.url,
+        featured: data.featured,
         categoryId: data.categoryId,
       });
     }
   }, [data, form]);
+
+  console.log("Watched values:", form.watch());
+  console.log("Form errors:", form.formState.errors);
 
   const handleSubmit = async (
     values: z.infer<typeof SubCategoryFormSchema>,
@@ -123,7 +127,7 @@ const SubCategoryDetails: FC<Props> = ({ data, categories }) => {
           <CardTitle>Sub Category Information</CardTitle>
           <CardDescription>
             {data?.id
-              ? `Update ${data?.name} SubCategory information.`
+              ? `Update ${data?.name} sub category information.`
               : " Lets create a sub category. You can edit sub category later from the sub categories table or the sub category page."}
           </CardDescription>
         </CardHeader>
@@ -165,7 +169,7 @@ const SubCategoryDetails: FC<Props> = ({ data, categories }) => {
                 name={"name"}
                 render={({ field }) => (
                   <FormItem className={"flex-1"}>
-                    <FormLabel>SubCategory Name</FormLabel>
+                    <FormLabel>Sub Category Name</FormLabel>
                     <FormControl>
                       <Input {...field} placeholder={"Sub Category Name"} />
                     </FormControl>
@@ -179,7 +183,7 @@ const SubCategoryDetails: FC<Props> = ({ data, categories }) => {
                 name={"url"}
                 render={({ field }) => (
                   <FormItem className={"flex-1"}>
-                    <FormLabel>SubCategory Url</FormLabel>
+                    <FormLabel>Sub Category Url</FormLabel>
                     <FormControl>
                       <Input {...field} placeholder={"/sub-category-url"} />
                     </FormControl>
@@ -189,29 +193,27 @@ const SubCategoryDetails: FC<Props> = ({ data, categories }) => {
               />
 
               <FormField
-                disabled={isLoading}
                 control={form.control}
-                name={"categoryId"}
+                name="categoryId"
                 render={({ field }) => (
-                  <FormItem className={"flex-1"}>
+                  <FormItem className="flex-1">
                     <FormLabel>Category</FormLabel>
                     <Select
-                      disabled={isLoading || categories?.length == 0}
+                      disabled={isLoading || categories.length === 0}
                       onValueChange={field.onChange}
                       value={field.value}
                       defaultValue={field.value}
                     >
                       <FormControl>
-                        <SelectTrigger>
-                          <SelectValue
-                            defaultValue={field.value}
-                            placeholder={"Select a category"}
-                          />
+                        <SelectTrigger ref={field.ref}>
+                          {" "}
+                          {/* ✅ Add this */}
+                          <SelectValue placeholder="Select a category" />
                         </SelectTrigger>
                       </FormControl>
                       <SelectContent>
-                        {categories?.map((category) => (
-                          <SelectItem value={category.id} key={category.id}>
+                        {categories.map((category) => (
+                          <SelectItem key={category.id} value={category.id}>
                             {category.name}
                           </SelectItem>
                         ))}
@@ -247,7 +249,6 @@ const SubCategoryDetails: FC<Props> = ({ data, categories }) => {
                   </FormItem>
                 )}
               />
-
               <Button
                 type={"submit"}
                 className={"cursor-pointer"}
