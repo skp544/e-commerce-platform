@@ -32,3 +32,39 @@ export const CategoryFormSchema = z.object({
     }),
   featured: z.boolean(),
 });
+
+// su1b-category form schema
+export const SubCategoryFormSchema = z.object({
+  name: z
+    .string({
+      required_error: "Sub Category name is required.",
+      invalid_type_error: "Sub Category name must be a string.",
+    })
+    .min(2, {
+      message: "Sub Category name must be at least 2 characters long.",
+    })
+    .max(50, { message: "Sub Category name cannot exceed 50 characters." })
+    .regex(/^[a-zA-Z0-9\s'&-]+$/, {
+      message:
+        "Only letters, numbers, and spaces are allowed in the category name.",
+    }),
+  image: z
+    .object({
+      url: z.string(),
+    })
+    .array()
+    .length(1, "Choose a category image."),
+  url: z
+    .string({
+      required_error: "Sub Category url is required",
+      invalid_type_error: "Sub Category url must be a string",
+    })
+    .min(2, { message: "Sub Category url must be at least 2 characters long." })
+    .max(50, { message: "Sub Category url cannot exceed 50 characters." })
+    .regex(/^(?!.*(?:[-_ ]){2,})[a-zA-Z0-9_-]+$/, {
+      message:
+        "Only letters, numbers, hyphen, and underscore are allowed in the category url, and consecutive occurrences of hyphens, underscores, or spaces are not permitted.",
+    }),
+  categoryId: z.string().uuid(),
+  featured: z.boolean(),
+});
