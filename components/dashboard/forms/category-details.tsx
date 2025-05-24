@@ -31,6 +31,7 @@ import ImageUpload from "@/components/dashboard/image-upload";
 import { toast } from "sonner";
 import { upsertCategory } from "@/queries/category";
 import { v4 } from "uuid";
+import { errorHandler } from "@/lib/utils";
 
 interface Props {
   data?: Category;
@@ -96,11 +97,7 @@ const CategoryDetails: FC<Props> = ({ data }) => {
         router.push("/dashboard/admin/categories");
       }
     } catch (e) {
-      if (e instanceof Error) {
-        toast.error(e.message);
-      } else {
-        toast.error("An unknown error occurred");
-      }
+      return errorHandler(e);
     }
   };
 

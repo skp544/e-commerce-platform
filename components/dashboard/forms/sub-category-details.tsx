@@ -38,6 +38,7 @@ import {
 } from "@/components/ui/select";
 import { Checkbox } from "@/components/ui/checkbox";
 import { Button } from "@/components/ui/button";
+import { errorHandler } from "@/lib/utils";
 
 interface Props {
   data?: SubCategory;
@@ -111,11 +112,7 @@ const SubCategoryDetails: FC<Props> = ({ data, categories }) => {
         router.push("/dashboard/admin/sub-categories");
       }
     } catch (e) {
-      if (e instanceof Error) {
-        toast.error(e.message);
-      } else {
-        toast.error("An unknown error occurred");
-      }
+      return errorHandler(e);
     }
   };
 

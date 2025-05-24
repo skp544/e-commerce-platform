@@ -33,6 +33,7 @@ import ImageUpload from "@/components/dashboard/image-upload";
 import { toast } from "sonner";
 import { v4 } from "uuid";
 import { upsertStore } from "@/queries/store";
+import { errorHandler } from "@/lib/utils";
 
 interface Props {
   data?: Store;
@@ -117,14 +118,10 @@ const StoreDetails: FC<Props> = ({ data }) => {
       if (data?.id) {
         router.refresh();
       } else {
-        router.push("/dashboard/seller/stores");
+        router.push(`/dashboard/seller/stores/${response.url}`);
       }
     } catch (e) {
-      if (e instanceof Error) {
-        toast.error(e.message);
-      } else {
-        toast.error("An unknown error occurred");
-      }
+      return errorHandler(e);
     }
   };
 

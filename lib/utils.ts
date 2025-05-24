@@ -1,6 +1,7 @@
 import { clsx, type ClassValue } from "clsx";
 import { twMerge } from "tailwind-merge";
 import { Prisma } from "@/lib/generated/prisma";
+import { toast } from "sonner";
 
 export function cn(...inputs: ClassValue[]) {
   return twMerge(clsx(inputs));
@@ -10,34 +11,38 @@ export const CLOUDINARY_CLOUD_KEY =
   process.env.NEXT_PUBLIC_CLOUDINARY_CLOUD_NAME;
 
 export const errorHandler = (e: unknown): never => {
+  let errorMessage = "";
   // Handle Prisma known request errors
   if (e instanceof Prisma.PrismaClientKnownRequestError) {
     switch (e.code) {
       case "P2002":
-        throw new Error("A record with this unique field already exists.");
+        errorMessage = "A record with this unique field already exists.";
+        break;
       case "P2025":
-        throw new Error("The requested record could not be found.");
+        errorMessage = "The requested record could not be found.";
+        break;
       default:
-        throw new Error(`Prisma error: ${e.message}`);
+        errorMessage = `Prisma error: ${e.message}`;
     }
   }
 
   // Handle Prisma validation errors
-  if (e instanceof Prisma.PrismaClientValidationError) {
-    throw new Error("Invalid input data. Please check your form fields.");
+  else if (e instanceof Prisma.PrismaClientValidationError) {
+    errorMessage = "Invalid input data. Please check your form fields.";
   }
 
   // Handle general JS errors
-  if (e instanceof Error) {
-    throw new Error(e.message);
+  else if (e instanceof Error) {
+    errorMessage = e.message;
   }
 
   // Handle string error messages
-  if (typeof e === "string") {
-    throw new Error(e);
+  else if (typeof e === "string") {
+    errorMessage = e;
+  } else {
+    errorMessage = "An unexpected error occurred. Please try again.";
   }
-
+  toast.error(errorMessage);
+  throw new Error(errorMessage);
   // Log unknown errors for debugging
-  console.error("Unexpected error:", e);
-  throw new Error("An unexpected error occurred. Please try again.");
 };
