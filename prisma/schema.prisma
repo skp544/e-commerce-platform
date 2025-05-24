@@ -65,6 +65,7 @@ model Store {
   name                   String
   description            String      @db.Text
   email                  String      @unique
+  phone                  String      @unique
   url                    String      @unique
   logo                   String
   cover                  String

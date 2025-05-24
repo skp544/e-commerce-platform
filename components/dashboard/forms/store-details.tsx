@@ -31,8 +31,8 @@ import { Button } from "@/components/ui/button";
 import { Checkbox } from "@/components/ui/checkbox";
 import ImageUpload from "@/components/dashboard/image-upload";
 import { toast } from "sonner";
-import { upsertCategory } from "@/queries/category";
 import { v4 } from "uuid";
+import { upsertStore } from "@/queries/store";
 
 interface Props {
   data?: Store;
@@ -49,11 +49,11 @@ const StoreDetails: FC<Props> = ({ data }) => {
       description: data?.description || "",
       email: data?.email || "",
       phone: data?.phone || "",
-      logo: data?.logo ? [{ url: data?.logo }] : [],
-      cover: data?.cover ? [{ url: data?.cover }] : [],
+      logo: data?.logo ? [{ url: data.logo }] : [],
+      cover: data?.cover ? [{ url: data.cover }] : [],
       url: data?.url || "",
       featured: data?.featured || false,
-      status: data?.status.toString() || "PENDING",
+      status: data?.status || "PENDING",
     },
   });
 
@@ -61,36 +61,48 @@ const StoreDetails: FC<Props> = ({ data }) => {
   const isLoading = form.formState.isSubmitting;
 
   // Reset form values when data changes
-
   useEffect(() => {
     if (data) {
       form.reset({
-        name: data.name,
-        description: data.description,
-        email: data.email,
-        phone: data.phone,
-        logo: [{ url: data.logo }],
-        cover: [{ url: data.cover }],
-        url: data.url,
-        featured: data.featured,
-        status: data.status,
+        name: data.name || "",
+        description: data.description || "",
+        email: data.email || "",
+        phone: data.phone || "",
+        logo: data.logo ? [{ url: data.logo }] : [],
+        cover: data.cover ? [{ url: data.cover }] : [],
+        url: data.url || "",
+        featured: data.featured || false,
+        status: data.status || "PENDING",
       });
     }
   }, [data, form]);
 
+  console.log("Watched values:", form.watch());
+  console.log("Form values:", form.getValues());
+  console.log("Form errors:", form.formState.errors);
+
   const handleSubmit = async (values: z.infer<typeof StoreFormSchema>) => {
-    console.log("Values", values);
+    // console.log("Values", values);
+
+    const formValues = form.getValues();
+
+    console.log("Form values:", form.getValues());
 
     try {
-      // const response = await upsertCategory({
-      //   id: data?.id ? data.id : v4(),
-      //   name: values.name,
-      //   image: values.image[0].url,
-      //   url: values.url,
-      //   featured: values.featured,
-      //   createdAt: new Date(),
-      //   updatedAt: new Date(),
-      // });
+      const response = await upsertStore({
+        id: data?.id ? data.id : v4(),
+        name: formValues.name || values.name,
+        description: formValues.description || values.description,
+        email: formValues.email || values.email,
+        phone: formValues.phone || values.phone,
+        logo: formValues.logo[0].url || values.logo[0].url,
+        cover: formValues.cover[0].url || values.cover[0].url,
+        url: formValues.url || values.url,
+        status: "PENDING",
+        featured: formValues.featured || values.featured,
+        createdAt: new Date(),
+        updatedAt: new Date(),
+      });
 
       console.log("Response", response);
 
@@ -105,7 +117,7 @@ const StoreDetails: FC<Props> = ({ data }) => {
       if (data?.id) {
         router.refresh();
       } else {
-        router.push("/dashboard/admin/categories");
+        router.push("/dashboard/seller/stores");
       }
     } catch (e) {
       if (e instanceof Error) {
@@ -195,9 +207,9 @@ const StoreDetails: FC<Props> = ({ data }) => {
                 name={"name"}
                 render={({ field }) => (
                   <FormItem className={"flex-1"}>
-                    <FormLabel>Category Name</FormLabel>
+                    <FormLabel>Store Name</FormLabel>
                     <FormControl>
-                      <Input {...field} placeholder={"Category Name"} />
+                      <Input {...field} placeholder={"Store Name"} />
                     </FormControl>
                     <FormMessage />
                   </FormItem>
@@ -224,19 +236,19 @@ const StoreDetails: FC<Props> = ({ data }) => {
 
               {/* email and phone */}
 
-              <div className="flex flex-col gap-6 md:flex-row">
+              <div className={"flex flex-col md:flex-row gap-6"}>
                 <FormField
                   disabled={isLoading}
                   control={form.control}
-                  name="email"
+                  name={"email"}
                   render={({ field }) => (
-                    <FormItem className="flex-1">
+                    <FormItem className={"flex-1"}>
                       <FormLabel>Store Email</FormLabel>
                       <FormControl>
                         <Input
-                          placeholder="store@example.com"
+                          placeholder={"store@example.com"}
+                          type={"email"}
                           {...field}
-                          type="email"
                         />
                       </FormControl>
                       <FormMessage />
@@ -247,12 +259,12 @@ const StoreDetails: FC<Props> = ({ data }) => {
                 <FormField
                   disabled={isLoading}
                   control={form.control}
-                  name="phone"
+                  name={"phone"}
                   render={({ field }) => (
-                    <FormItem className="flex-1">
-                      <FormLabel>Store Phone</FormLabel>
+                    <FormItem className={"flex-1"}>
+                      <FormLabel>Store Phone No.</FormLabel>
                       <FormControl>
-                        <Input placeholder="1234567890" {...field} />
+                        <Input placeholder={"9876543210"} {...field} />
                       </FormControl>
                       <FormMessage />
                     </FormItem>
@@ -261,14 +273,14 @@ const StoreDetails: FC<Props> = ({ data }) => {
               </div>
 
               <FormField
-                disabled={isLoading}
+                name={"url"}
                 control={form.control}
-                name="url"
+                disabled={isLoading}
                 render={({ field }) => (
-                  <FormItem className="flex-1">
+                  <FormItem className={"flex-1"}>
                     <FormLabel>Store Url</FormLabel>
                     <FormControl>
-                      <Input placeholder="/store-url" {...field} />
+                      <Input placeholder={"/store-url"} {...field} />
                     </FormControl>
                     <FormMessage />
                   </FormItem>

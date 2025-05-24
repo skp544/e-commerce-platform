@@ -4150,6 +4150,7 @@ export namespace Prisma {
     name: string | null
     description: string | null
     email: string | null
+    phone: string | null
     url: string | null
     logo: string | null
     cover: string | null
@@ -4171,6 +4172,7 @@ export namespace Prisma {
     name: string | null
     description: string | null
     email: string | null
+    phone: string | null
     url: string | null
     logo: string | null
     cover: string | null
@@ -4192,6 +4194,7 @@ export namespace Prisma {
     name: number
     description: number
     email: number
+    phone: number
     url: number
     logo: number
     cover: number
@@ -4229,6 +4232,7 @@ export namespace Prisma {
     name?: true
     description?: true
     email?: true
+    phone?: true
     url?: true
     logo?: true
     cover?: true
@@ -4250,6 +4254,7 @@ export namespace Prisma {
     name?: true
     description?: true
     email?: true
+    phone?: true
     url?: true
     logo?: true
     cover?: true
@@ -4271,6 +4276,7 @@ export namespace Prisma {
     name?: true
     description?: true
     email?: true
+    phone?: true
     url?: true
     logo?: true
     cover?: true
@@ -4379,6 +4385,7 @@ export namespace Prisma {
     name: string
     description: string
     email: string
+    phone: string
     url: string
     logo: string
     cover: string
@@ -4419,6 +4426,7 @@ export namespace Prisma {
     name?: boolean
     description?: boolean
     email?: boolean
+    phone?: boolean
     url?: boolean
     logo?: boolean
     cover?: boolean
@@ -4443,6 +4451,7 @@ export namespace Prisma {
     name?: boolean
     description?: boolean
     email?: boolean
+    phone?: boolean
     url?: boolean
     logo?: boolean
     cover?: boolean
@@ -4459,7 +4468,7 @@ export namespace Prisma {
     userId?: boolean
   }
 
-  export type StoreOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "name" | "description" | "email" | "url" | "logo" | "cover" | "status" | "averageRating" | "featured" | "returnPolicy" | "defaultShippingService" | "defaultShippingFees" | "defaultDeliveryTimeMin" | "defaultDeliveryTimeMax" | "createdAt" | "updatedAt" | "userId", ExtArgs["result"]["store"]>
+  export type StoreOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "name" | "description" | "email" | "phone" | "url" | "logo" | "cover" | "status" | "averageRating" | "featured" | "returnPolicy" | "defaultShippingService" | "defaultShippingFees" | "defaultDeliveryTimeMin" | "defaultDeliveryTimeMax" | "createdAt" | "updatedAt" | "userId", ExtArgs["result"]["store"]>
   export type StoreInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     user?: boolean | UserDefaultArgs<ExtArgs>
   }
@@ -4474,6 +4483,7 @@ export namespace Prisma {
       name: string
       description: string
       email: string
+      phone: string
       url: string
       logo: string
       cover: string
@@ -4862,6 +4872,7 @@ export namespace Prisma {
     readonly name: FieldRef<"Store", 'String'>
     readonly description: FieldRef<"Store", 'String'>
     readonly email: FieldRef<"Store", 'String'>
+    readonly phone: FieldRef<"Store", 'String'>
     readonly url: FieldRef<"Store", 'String'>
     readonly logo: FieldRef<"Store", 'String'>
     readonly cover: FieldRef<"Store", 'String'>
@@ -5296,6 +5307,7 @@ export namespace Prisma {
     name: 'name',
     description: 'description',
     email: 'email',
+    phone: 'phone',
     url: 'url',
     logo: 'logo',
     cover: 'cover',
@@ -5367,6 +5379,7 @@ export namespace Prisma {
     name: 'name',
     description: 'description',
     email: 'email',
+    phone: 'phone',
     url: 'url',
     logo: 'logo',
     cover: 'cover',
@@ -5646,6 +5659,7 @@ export namespace Prisma {
     name?: StringFilter<"Store"> | string
     description?: StringFilter<"Store"> | string
     email?: StringFilter<"Store"> | string
+    phone?: StringFilter<"Store"> | string
     url?: StringFilter<"Store"> | string
     logo?: StringFilter<"Store"> | string
     cover?: StringFilter<"Store"> | string
@@ -5668,6 +5682,7 @@ export namespace Prisma {
     name?: SortOrder
     description?: SortOrder
     email?: SortOrder
+    phone?: SortOrder
     url?: SortOrder
     logo?: SortOrder
     cover?: SortOrder
@@ -5689,6 +5704,7 @@ export namespace Prisma {
   export type StoreWhereUniqueInput = Prisma.AtLeast<{
     id?: string
     email?: string
+    phone?: string
     url?: string
     AND?: StoreWhereInput | StoreWhereInput[]
     OR?: StoreWhereInput[]
@@ -5709,13 +5725,14 @@ export namespace Prisma {
     updatedAt?: DateTimeFilter<"Store"> | Date | string
     userId?: StringFilter<"Store"> | string
     user?: XOR<UserScalarRelationFilter, UserWhereInput>
-  }, "id" | "email" | "url">
+  }, "id" | "email" | "phone" | "url">
 
   export type StoreOrderByWithAggregationInput = {
     id?: SortOrder
     name?: SortOrder
     description?: SortOrder
     email?: SortOrder
+    phone?: SortOrder
     url?: SortOrder
     logo?: SortOrder
     cover?: SortOrder
@@ -5745,6 +5762,7 @@ export namespace Prisma {
     name?: StringWithAggregatesFilter<"Store"> | string
     description?: StringWithAggregatesFilter<"Store"> | string
     email?: StringWithAggregatesFilter<"Store"> | string
+    phone?: StringWithAggregatesFilter<"Store"> | string
     url?: StringWithAggregatesFilter<"Store"> | string
     logo?: StringWithAggregatesFilter<"Store"> | string
     cover?: StringWithAggregatesFilter<"Store"> | string
@@ -5990,6 +6008,7 @@ export namespace Prisma {
     name: string
     description: string
     email: string
+    phone: string
     url: string
     logo: string
     cover: string
@@ -6011,6 +6030,7 @@ export namespace Prisma {
     name: string
     description: string
     email: string
+    phone: string
     url: string
     logo: string
     cover: string
@@ -6032,6 +6052,7 @@ export namespace Prisma {
     name?: StringFieldUpdateOperationsInput | string
     description?: StringFieldUpdateOperationsInput | string
     email?: StringFieldUpdateOperationsInput | string
+    phone?: StringFieldUpdateOperationsInput | string
     url?: StringFieldUpdateOperationsInput | string
     logo?: StringFieldUpdateOperationsInput | string
     cover?: StringFieldUpdateOperationsInput | string
@@ -6053,6 +6074,7 @@ export namespace Prisma {
     name?: StringFieldUpdateOperationsInput | string
     description?: StringFieldUpdateOperationsInput | string
     email?: StringFieldUpdateOperationsInput | string
+    phone?: StringFieldUpdateOperationsInput | string
     url?: StringFieldUpdateOperationsInput | string
     logo?: StringFieldUpdateOperationsInput | string
     cover?: StringFieldUpdateOperationsInput | string
@@ -6074,6 +6096,7 @@ export namespace Prisma {
     name: string
     description: string
     email: string
+    phone: string
     url: string
     logo: string
     cover: string
@@ -6095,6 +6118,7 @@ export namespace Prisma {
     name?: StringFieldUpdateOperationsInput | string
     description?: StringFieldUpdateOperationsInput | string
     email?: StringFieldUpdateOperationsInput | string
+    phone?: StringFieldUpdateOperationsInput | string
     url?: StringFieldUpdateOperationsInput | string
     logo?: StringFieldUpdateOperationsInput | string
     cover?: StringFieldUpdateOperationsInput | string
@@ -6115,6 +6139,7 @@ export namespace Prisma {
     name?: StringFieldUpdateOperationsInput | string
     description?: StringFieldUpdateOperationsInput | string
     email?: StringFieldUpdateOperationsInput | string
+    phone?: StringFieldUpdateOperationsInput | string
     url?: StringFieldUpdateOperationsInput | string
     logo?: StringFieldUpdateOperationsInput | string
     cover?: StringFieldUpdateOperationsInput | string
@@ -6431,6 +6456,7 @@ export namespace Prisma {
     name?: SortOrder
     description?: SortOrder
     email?: SortOrder
+    phone?: SortOrder
     url?: SortOrder
     logo?: SortOrder
     cover?: SortOrder
@@ -6459,6 +6485,7 @@ export namespace Prisma {
     name?: SortOrder
     description?: SortOrder
     email?: SortOrder
+    phone?: SortOrder
     url?: SortOrder
     logo?: SortOrder
     cover?: SortOrder
@@ -6480,6 +6507,7 @@ export namespace Prisma {
     name?: SortOrder
     description?: SortOrder
     email?: SortOrder
+    phone?: SortOrder
     url?: SortOrder
     logo?: SortOrder
     cover?: SortOrder
@@ -6974,6 +7002,7 @@ export namespace Prisma {
     name: string
     description: string
     email: string
+    phone: string
     url: string
     logo: string
     cover: string
@@ -6994,6 +7023,7 @@ export namespace Prisma {
     name: string
     description: string
     email: string
+    phone: string
     url: string
     logo: string
     cover: string
@@ -7043,6 +7073,7 @@ export namespace Prisma {
     name?: StringFilter<"Store"> | string
     description?: StringFilter<"Store"> | string
     email?: StringFilter<"Store"> | string
+    phone?: StringFilter<"Store"> | string
     url?: StringFilter<"Store"> | string
     logo?: StringFilter<"Store"> | string
     cover?: StringFilter<"Store"> | string
@@ -7236,6 +7267,7 @@ export namespace Prisma {
     name: string
     description: string
     email: string
+    phone: string
     url: string
     logo: string
     cover: string
@@ -7256,6 +7288,7 @@ export namespace Prisma {
     name?: StringFieldUpdateOperationsInput | string
     description?: StringFieldUpdateOperationsInput | string
     email?: StringFieldUpdateOperationsInput | string
+    phone?: StringFieldUpdateOperationsInput | string
     url?: StringFieldUpdateOperationsInput | string
     logo?: StringFieldUpdateOperationsInput | string
     cover?: StringFieldUpdateOperationsInput | string
@@ -7276,6 +7309,7 @@ export namespace Prisma {
     name?: StringFieldUpdateOperationsInput | string
     description?: StringFieldUpdateOperationsInput | string
     email?: StringFieldUpdateOperationsInput | string
+    phone?: StringFieldUpdateOperationsInput | string
     url?: StringFieldUpdateOperationsInput | string
     logo?: StringFieldUpdateOperationsInput | string
     cover?: StringFieldUpdateOperationsInput | string
@@ -7296,6 +7330,7 @@ export namespace Prisma {
     name?: StringFieldUpdateOperationsInput | string
     description?: StringFieldUpdateOperationsInput | string
     email?: StringFieldUpdateOperationsInput | string
+    phone?: StringFieldUpdateOperationsInput | string
     url?: StringFieldUpdateOperationsInput | string
     logo?: StringFieldUpdateOperationsInput | string
     cover?: StringFieldUpdateOperationsInput | string
