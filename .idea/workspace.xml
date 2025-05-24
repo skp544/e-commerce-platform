@@ -4,11 +4,11 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="ce013acf-72fd-4aef-96dd-4aea93d5eedd" name="Changes" comment="adding store model">
+    <list default="true" id="ce013acf-72fd-4aef-96dd-4aea93d5eedd" name="Changes" comment="feat: enhance image upload component with error handling and cover image support">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/dashboard/seller/stores/new/page.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/app/dashboard/seller/stores/new/page.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/components/dashboard/forms/store-details.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/components/dashboard/forms/store-details.tsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/components/dashboard/image-upload.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/components/dashboard/image-upload.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/schemas.ts" beforeDir="false" afterPath="$PROJECT_DIR$/lib/schemas.ts" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -121,7 +121,7 @@
       <option name="presentableId" value="Default" />
       <updated>1747976364761</updated>
       <workItem from="1747976368153" duration="19732000" />
-      <workItem from="1748027646375" duration="6105000" />
+      <workItem from="1748027646375" duration="6724000" />
     </task>
     <task id="LOCAL-00001" summary="add subcategory fetching and update dashboard component">
       <option name="closed" value="true" />
@@ -163,7 +163,15 @@
       <option name="project" value="LOCAL" />
       <updated>1748010620689</updated>
     </task>
-    <option name="localTasksCounter" value="6" />
+    <task id="LOCAL-00006" summary="feat: enhance image upload component with error handling and cover image support">
+      <option name="closed" value="true" />
+      <created>1748060805240</created>
+      <option name="number" value="00006" />
+      <option name="presentableId" value="LOCAL-00006" />
+      <option name="project" value="LOCAL" />
+      <updated>1748060805240</updated>
+    </task>
+    <option name="localTasksCounter" value="7" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -185,6 +193,7 @@
     <MESSAGE value="add new tab links for categories and subcategories in data table" />
     <MESSAGE value="refactor: remove unused imports and simplify CategoryDetails component" />
     <MESSAGE value="adding store model" />
-    <option name="LAST_COMMIT_MESSAGE" value="adding store model" />
+    <MESSAGE value="feat: enhance image upload component with error handling and cover image support" />
+    <option name="LAST_COMMIT_MESSAGE" value="feat: enhance image upload component with error handling and cover image support" />
   </component>
 </project>

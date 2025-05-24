@@ -137,12 +137,12 @@ const StoreDetails: FC<Props> = ({ data }) => {
               className={"space-y-4"}
             >
               {/* cover and logo */}
-              <div className="relative py-2 mb-24">
+              <div className="relative  py-2 mb-24">
                 <FormField
                   control={form.control}
                   name="logo"
                   render={({ field }) => (
-                    <FormItem>
+                    <FormItem className="absolute -bottom-20 -left-48 z-10 inset-x-96">
                       <FormControl>
                         <ImageUpload
                           type="profile"

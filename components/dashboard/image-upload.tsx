@@ -53,18 +53,20 @@ const ImageUpload = ({
   if (type === "profile") {
     return (
       <div
-        className={
-          "relative rounded-full w-52 h-52  bg-gray-200 border-2 border-white shadow-2xl"
-        }
+        className={cn(
+          "relative rounded-full w-52 h-52  bg-gray-200 border-2 border-white shadow-2xl overflow-visible",
+          {
+            "bg-red-100": error,
+            "animate-pulse": isBouncing,
+          },
+        )}
       >
         {value.length > 0 && (
           <Image
             src={value[0]}
             height={300}
             width={300}
-            className={
-              "w-52 h-52 rounded-full object-cover absolute top-0 left-0 bottom-0 right-0"
-            }
+            className="w-52 h-52 rounded-full object-cover absolute top-0 left-0 bottom-0 right-0"
             alt={"image"}
           />
         )}
